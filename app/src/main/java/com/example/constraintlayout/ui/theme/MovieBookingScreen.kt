@@ -2,19 +2,19 @@ package com.example.constraintlayout.ui.theme
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -179,14 +179,325 @@ fun MovieBookingScreen() {
                 }
 
                 createHorizontalChain(
-                    castImage1, castImage2, castImage3, castImage4,
+                    castImage1,
+                    castImage2,
+                    castImage3,
+                    castImage4,
                     chainStyle = ChainStyle.SpreadInside
                 )
 
             }
 
+            val barrier = createBottomBarrier(coverImage, castContainer)
+
+            Text(text = stringResource(id = R.string.description_text),
+                color = Color(0x8A000000),
+                fontSize = 16.sp,
+                modifier = Modifier.constrainAs(descText) {
+                    top.linkTo(barrier, 36.dp)
+                    start.linkTo(parent.start, 24.dp)
+                    end.linkTo(parent.end, 24.dp)
+                    width = Dimension.preferredWrapContent
+                })
+
+            Surface(color = colorResource(id = R.color.gray),
+                modifier = Modifier.constrainAs(bottomSurface) {
+                    top.linkTo(descText.bottom, 36.dp)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                }) {}
+
+            val (date1, date2, date3, date4, date5, date6, date7, day1, day2, day3, day4, day5, day6, day7, dateSelector, dateMarker) = createRefs()
+
+            val selectedDateStartState = remember { mutableStateOf(day1.start) }
+            val selectedDateEndState = remember { mutableStateOf(day1.end) }
+
+            Surface(color = Color.White, modifier = Modifier.constrainAs(dateSelector) {
+                    top.linkTo(descText.bottom, 36.dp)
+                    start.linkTo(selectedDateStartState.value)
+                    end.linkTo(selectedDateEndState.value)
+                    bottom.linkTo(day1.bottom)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                }) {}
+
+            Surface(color = Color.Black, modifier = Modifier
+                .height(4.dp)
+                .constrainAs(dateMarker) {
+                    top.linkTo(dateSelector.top)
+                    start.linkTo(dateSelector.start)
+                    end.linkTo(dateSelector.end)
+                    Dimension.fillToConstraints
+                }) {}
+
+            Text(text = "20",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date1) {
+                        top.linkTo(descText.bottom, 52.dp)
+                        start.linkTo(day1.start)
+                        end.linkTo(day1.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day1.start
+                        selectedDateEndState.value = day1.end
+                    })
+
+            Text(text = "21",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date2) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day2.start)
+                        end.linkTo(day2.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day2.start
+                        selectedDateEndState.value = day2.end
+                    })
+
+            Text(text = "22",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date3) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day3.start)
+                        end.linkTo(day3.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day3.start
+                        selectedDateEndState.value = day3.end
+                    })
+
+            Text(text = "23",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date4) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day4.start)
+                        end.linkTo(day4.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day4.start
+                        selectedDateEndState.value = day4.end
+                    })
+
+            Text(text = "24",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date5) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day5.start)
+                        end.linkTo(day5.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day5.start
+                        selectedDateEndState.value = day5.end
+                    })
+
+            Text(text = "25",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date6) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day6.start)
+                        end.linkTo(day6.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day6.start
+                        selectedDateEndState.value = day6.end
+                    })
+
+            Text(text = "25",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .constrainAs(date7) {
+                        top.linkTo(date1.top)
+                        bottom.linkTo(date1.bottom)
+                        start.linkTo(day7.start)
+                        end.linkTo(day7.end)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day7.start
+                        selectedDateEndState.value = day7.end
+                    })
+
+            Text(text = "SUN",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day1) {
+                        top.linkTo(date1.bottom, 16.dp)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day1.start
+                        selectedDateEndState.value = day1.end
+                    })
+
+            Text(text = "MON",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day2) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day2.start
+                        selectedDateEndState.value = day2.end
+                    })
+
+            Text(text = "TUE",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day3) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day3.start
+                        selectedDateEndState.value = day3.end
+                    })
+
+            Text(text = "WED",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day4) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day4.start
+                        selectedDateEndState.value = day4.end
+                    })
+
+            Text(text = "THU",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day5) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day5.start
+                        selectedDateEndState.value = day5.end
+                    })
+
+            Text(text = "FRI",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day6) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day6.start
+                        selectedDateEndState.value = day6.end
+                    })
+
+            Text(text = "SAT",
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.dark_gray),
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp, bottom = 16.dp)
+                    .constrainAs(day7) {
+                        top.linkTo(day1.top)
+                        bottom.linkTo(day1.bottom)
+                    }
+                    .clickable {
+                        selectedDateStartState.value = day7.start
+                        selectedDateEndState.value = day7.end
+                    })
+
+            createHorizontalChain(day1, day2, day3, day4, day5, day6, day7)
+
+            ConstraintLayout(modifier = Modifier.constrainAs(cinemaNameContainer) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(dateSelector.bottom, 16.dp)
+                bottom.linkTo(bookButton.top, 16.dp)
+                width = Dimension.fillToConstraints
+                height = Dimension.fillToConstraints
+            }) {
+                val (cinemaNameText, cinemaDistText) = createRefs()
+
+                Text(text = "Velocity Cinema",
+                    fontSize = 20.sp,
+                    color = Color(0xDD000000),
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.constrainAs(cinemaNameText) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    })
+
+                Text(text = "4.6 km",
+                    fontSize = 14.sp,
+                    color = Color(0x8A000000),
+                    modifier = Modifier.constrainAs(cinemaDistText) {
+                        start.linkTo(cinemaNameText.start)
+                        end.linkTo(cinemaNameText.end)
+                        width = Dimension.fillToConstraints
+                    })
+                createVerticalChain(cinemaNameText, cinemaDistText, chainStyle = ChainStyle.Packed)
+
+            }
+            
+            Button(onClick = { },
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.brick_red)),
+            modifier = Modifier
+                .height(60.dp)
+                .background(color = colorResource(id = R.color.brick_red))
+                .constrainAs(bookButton) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
+                }) {
+                Text(text = "BOOK TICKETS",
+                color = Color.White,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Medium)
+
+            }
         }
     }
-
-
 }
