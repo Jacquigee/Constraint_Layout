@@ -1,7 +1,9 @@
 package com.example.constraintlayout.ui.theme
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -11,11 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.constraintlayout.R
@@ -124,6 +129,59 @@ fun MovieBookingScreen() {
                             start.linkTo(coverImage.end, 16.dp)
                         }
                         .aspectRatio(1f))
+
+                Image(painter = painterResource(id = R.drawable.cast2),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(50.dp)
+                        .constrainAs(castImage2) {
+                            top.linkTo(castImage1.top)
+                            bottom.linkTo(castImage1.bottom)
+                            start.linkTo(castImage1.end)
+                        }
+                        .aspectRatio(1f))
+
+                Image(painter = painterResource(id = R.drawable.cast3),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(50.dp)
+                        .constrainAs(castImage3) {
+                            top.linkTo(castImage1.top)
+                            bottom.linkTo(castImage1.bottom)
+                            start.linkTo(castImage2.end)
+                        }
+                        .aspectRatio(1f))
+
+                Box(modifier = Modifier
+                    .height(50.dp)
+                    .background(color = colorResource(id = R.color.gray))
+                    .constrainAs(castImage4) {
+                        top.linkTo(castImage1.top)
+                        bottom.linkTo(castImage1.bottom)
+                        start.linkTo(castImage3.end)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+                    .aspectRatio(1f))
+
+                {
+                    Text(
+                        text = "+9",
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .padding(horizontal = 4.dp)
+                            .align(Alignment.Center),
+                        color = Color.Black
+                    )
+
+                }
+
+                createHorizontalChain(
+                    castImage1, castImage2, castImage3, castImage4,
+                    chainStyle = ChainStyle.SpreadInside
+                )
 
             }
 
